@@ -109,8 +109,12 @@ jobs:
         run: |
           # Install the needed tools for creating rpm / deb packages
           # Also install tools for creating repo files
+          # llvm-strip-20 and llvm-objcopy-20 are needed to fix 
+          #   an llvm-strip bug in v18 that breaks libunwind
           sudo apt update
-          sudo apt install -y llvm
+          sudo apt install -y llvm llvm-20
+          sudo ln -sf /usr/bin/llvm-strip-20 /usr/bin/llvm-strip
+          sudo ln -sf /usr/bin/llvm-objcopy-20 /usr/bin/llvm-objcopy
           sudo apt install -y rpm debhelper-compat build-essential
           sudo apt install -y dpkg-dev createrepo-c
 
